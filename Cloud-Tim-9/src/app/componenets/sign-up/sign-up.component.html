@@ -11,7 +11,7 @@
                 <div class="form">
                     <input type="text" name="givenName" [(ngModel)]="user.given_name" placeholder="First Name">
                     <input type="text" name="familyName" [(ngModel)]="user.family_name" placeholder="Last Name">
-                    <input type="date" name="birthdate" [(ngModel)]="user.birthdate" placeholder="Birthday">
+                    <input type="date" name="birthdate" [(ngModel)]="user.birthdate" placeholder="Birthday" max="{{date | date:'yyyy-MM-dd'}}">
                     <input type="text" name="username" [(ngModel)]="user.preferred_username" placeholder="Username">
                     <input type="text" name="phone" [(ngModel)]="user.phone_number" placeholder="Phone number">
                     <input type="email" name="email" [(ngModel)]="user.email" placeholder="Email Address" autocomplete="off">

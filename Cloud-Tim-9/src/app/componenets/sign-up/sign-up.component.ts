@@ -14,16 +14,18 @@ export class SignUpComponent implements OnInit{
   isConfirm:boolean = false;
   alertMessage:string = '';
   showAlert:boolean = false;
+  date:Date = new Date();
 
   constructor(private router:Router, private cognitoService : CognitoService) {}
 
   ngOnInit(): void {
     this.user = {} as User;
     this.isConfirm = false;
+    this.date = new Date;
   }
 
   public signUpWithCognito(){
-    if (this.user && this.user.email && this.user.password) {
+    if (this.user && this.user.email && this.user.password && this.user.birthdate && this.user.family_name && this.user.given_name && this.user.phone_number && this.user.preferred_username) {
       this.cognitoService.signUp(this.user)
       .then(() => {
         this.isConfirm = true;
@@ -33,7 +35,7 @@ export class SignUpComponent implements OnInit{
       })
     }
     else{
-      this.displayAlert("Missing email or password");
+      this.displayAlert("Missing parameters");
     }
   }
 
