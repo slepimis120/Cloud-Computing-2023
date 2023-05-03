@@ -37,7 +37,7 @@ export class SignUpComponent implements OnInit{
     }
   }
 
-  public confirtmSignUp(){
+  public confirmSignUp(){
     if (this.user) {
       this.cognitoService.confirmSignUp(this.user)
       .then(() => {

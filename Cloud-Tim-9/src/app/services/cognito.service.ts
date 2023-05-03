@@ -21,12 +21,35 @@ export class CognitoService {
       attributes: {
         email: user.email,
         given_name: user.given_name,
-        family_name: user.family_name
+        family_name: user.family_name,
+        phone_number: user.phone_number,
+        preferred_username: user.preferred_username,
+        birthdate: user.birthdate
       }
     })
   }
 
   public confirmSignUp(user:User) : Promise<any>{
     return Auth.confirmSignUp(user.email, user.code);
+  }
+
+  public getUser() : Promise<any> {
+    return Auth.currentUserInfo();
+  }
+
+  public signIn(user:User) : Promise<any> {
+    return Auth.signIn(user.email, user.password);
+  }
+
+  public signOut() : Promise<any> {
+    return Auth.signOut();
+  }
+
+  public forgotPassword(user:User) : Promise<any> {
+    return Auth.forgotPassword(user.email);
+  }
+
+  public forgotPasswordSubmit(user:User, new_password:string) : Promise<any>{
+    return Auth.forgotPasswordSubmit(user.email, user.code, new_password);
   }
 }
