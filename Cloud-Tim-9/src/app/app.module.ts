@@ -8,6 +8,7 @@ import { SignUpComponent } from './componenets/sign-up/sign-up.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MessageModalComponent } from './componenets/message-modal/message-modal.component';
 import { HomeComponent } from './componenets/home/home.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HomeComponent } from './componenets/home/home.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
