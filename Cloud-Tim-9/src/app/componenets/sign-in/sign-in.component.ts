@@ -35,7 +35,12 @@ export class SignInComponent implements OnInit
       });
     else
       if(this.user)
-        this.displayAlert("You must enter an E-mail and password.");
+        this.displayAlert("You must enter username and password.");
+  }
+  
+  SignUp()
+  {
+    this.router.navigate(["/sign-up"]);
   }
   
   private displayAlert(message:string)

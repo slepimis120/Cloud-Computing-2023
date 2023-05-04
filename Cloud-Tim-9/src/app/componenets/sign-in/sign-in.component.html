@@ -1,10 +1,12 @@
 <div *ngIf="user">
     <form>
-        <label class="element">Username: </label>
+        <label class="element">Username:</label>
         <input class="element" name="username" type="text" [(ngModel)]="user.email">
-        <label class="element">Password: </label>
+        <label class="element">Password:</label>
         <input class="element" name="password" type="password" [(ngModel)]="user.password">
         <button class="element" type="submit" (click)="SignIn()">Sign in</button>
+        <label class="element">Don't have an account?</label>
+        <button class="element" (click)="SignUp()">Sign up!</button>
     </form>
 </div>
 
