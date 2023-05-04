@@ -1,7 +1,7 @@
 <div *ngIf="user">
     <form>
-        <label class="element">E-mail: </label>
-        <input class="element" name="username" type="email" [(ngModel)]="user.email">
+        <label class="element">Username: </label>
+        <input class="element" name="username" type="text" [(ngModel)]="user.email">
         <label class="element">Password: </label>
         <input class="element" name="password" type="password" [(ngModel)]="user.password">
         <button class="element" type="submit" (click)="SignIn()">Sign in</button>
