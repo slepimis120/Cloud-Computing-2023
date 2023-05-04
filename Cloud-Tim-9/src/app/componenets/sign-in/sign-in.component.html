@@ -1,9 +1,11 @@
-<div>
+<div *ngIf="user">
     <form>
-        <label class="element">Username: </label>
-        <input class="element" id="username" type="text">
+        <label class="element">E-mail: </label>
+        <input class="element" id="username" type="text" [(ngModel)]="user.email">
         <label class="element">Password: </label>
-        <input class="element" id="password" type="password">
-        <button class="element" type="submit">Sign in</button>
+        <input class="element" id="password" type="password" [(ngModel)]="user.password">
+        <button class="element" type="submit" (click)="SignIn()">Sign in</button>
     </form>
 </div>
+
+<app-message-modal *ngIf="showAlert" (modalClose)="showAlert=false" [message]="alertMessage"></app-message-modal>
