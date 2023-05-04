@@ -14,9 +14,6 @@ export class SignInComponent implements OnInit
   alertMessage: string = "";
   showAlert: boolean = false;
   
-  isForgotPassword: boolean = false;
-  newPassword: string = "";
-  
   constructor(private router:Router, private cognitoService : CognitoService) {}
   
   ngOnInit()
@@ -37,7 +34,8 @@ export class SignInComponent implements OnInit
         this.displayAlert(error.message);
       });
     else
-      this.displayAlert("E-mail or password not valid.");
+      if(this.user)
+        this.displayAlert("You must enter an E-mail and password.");
   }
   
   private displayAlert(message:string)
