@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
       formData.append('file', this.selectedFile);
       console.log(this.selectedFile.name);
       console.log(formData);
-      this.http.put('https://0a4gl4t68d.execute-api.us-east-1.amazonaws.com/KT1/cloud-tim9-mediafiles/test5.png', formData)
+      this.http.put('/KT1/cloud-tim9-mediafiles/test5.png', formData)
         .subscribe(
           response => {
             console.log(response);
