@@ -1,9 +1,12 @@
 {
-    "/KT1/cloud-tim9-mediafiles": {
-      "target": "https://0a4gl4t68d.execute-api.us-east-1.amazonaws.com",
-      "secure": false,
-      "changeOrigin": true,
-      "logLevel": "debug",
-      "pathRewrite": {"^/api" : ""}
-    }
+  "/KT1/cloud-tim9-mediafiles/*": {
+    "target": "https://0a4gl4t68d.execute-api.us-east-1.amazonaws.com",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/KT1/filedetails/*": {
+    "target": "https://0a4gl4t68d.execute-api.us-east-1.amazonaws.com",
+    "secure": false,
+    "changeOrigin": true
+  }
 }

@@ -11,6 +11,8 @@ import {catchError, filter} from "rxjs";
 })
 export class HomeComponent implements OnInit {
   protected selectedFile: File | null = null;
+  protected description: string = '';
+  protected tags: string = '';
 
   constructor(private router: Router, private cognitoService: CognitoService, private http: HttpClient) {
   }
@@ -43,21 +45,43 @@ export class HomeComponent implements OnInit {
 
   onUpload() {
     if (this.selectedFile) {
-      const formData: FormData = new FormData();
-      formData.append('file', this.selectedFile);
-      console.log(this.selectedFile.name);
-      console.log(formData);
-      this.http.put('/KT1/cloud-tim9-mediafiles/test5.png', formData)
+      const fileUploadRequest: FormData = new FormData();
+      fileUploadRequest.append('file', this.selectedFile);
+      const request = {
+        Name: this.selectedFile.name,
+        Sizekb: this.selectedFile.size,
+        Type: this.selectedFile.type,
+        DateLastModified: this.selectedFile.lastModified,
+        DateCreated: Date.now().toString(),
+        Description: this.description,
+        Tags: ''
+      }
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+      };
+      this.http.post("/KT1/filedetails", request)
         .subscribe(
           response => {
             console.log(response);
-            // Handle the response
           },
           error => {
             console.log(error);
-            // Handle the error
           }
         );
+      this.http.put("/KT1/cloud-tim9-mediafiles/" + this.selectedFile.name, fileUploadRequest, httpOptions)
+        .subscribe(
+          response => {
+            console.log(response);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+
+      console.log(request);
     }
   }
 
