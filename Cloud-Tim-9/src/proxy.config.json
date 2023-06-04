@@ -4,8 +4,8 @@
     "secure": false,
     "changeOrigin": true
   },
-  "/KT1/filedetails/*": {
-    "target": "https://0a4gl4t68d.execute-api.us-east-1.amazonaws.com",
+  "/test/filedetails/*": {
+    "target": "https://bbi5j8zc87.execute-api.us-east-1.amazonaws.com",
     "secure": false,
     "changeOrigin": true
   }

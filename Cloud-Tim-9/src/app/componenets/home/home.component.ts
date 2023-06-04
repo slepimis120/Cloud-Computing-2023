@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
           'Content-Type': 'application/json'
         })
       };
-      this.http.post("/KT1/filedetails", request)
+      this.http.post("/test/filedetails/", request)
         .subscribe(
           response => {
             console.log(response);
