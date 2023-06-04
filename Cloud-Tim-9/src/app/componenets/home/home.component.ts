@@ -49,12 +49,13 @@ export class HomeComponent implements OnInit {
       fileUploadRequest.append('file', this.selectedFile);
       const request = {
         Name: this.selectedFile.name,
-        Sizekb: this.selectedFile.size,
+        SizeKb: this.selectedFile.size,
         Type: this.selectedFile.type,
-        DateLastModified: this.selectedFile.lastModified,
-        DateCreated: Date.now().toString(),
+        DateLastModified: this.selectedFile.lastModified.toLocaleString(),
+        DateCreated: Date.now().toLocaleString(),
         Description: this.description,
-        Tags: ''
+        Tags: ["z", "b"],
+        Uploader: "ja"
       }
 
       const httpOptions = {
