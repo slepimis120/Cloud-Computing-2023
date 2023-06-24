@@ -1,0 +1,12 @@
+{
+  "/KT1/cloud-tim9-mediafiles/*": {
+    "target": "https://0a4gl4t68d.execute-api.us-east-1.amazonaws.com",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/test/filedetails/*": {
+    "target": "https://bbi5j8zc87.execute-api.us-east-1.amazonaws.com",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
