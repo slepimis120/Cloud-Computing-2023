@@ -7,9 +7,9 @@
 
 <div class="user-content">
   <h2>Upload files</h2>
-  <input type="file" id="file" (change)="handleFileInput($event)">
-  <input type="text" id="description" [(ngModel)]="description">
-  <input type="text" id="tags" [(ngModel)]="tags">
+  <input type="file" id="file" (change)="handleFileInput($event)" >
+  <input type="text" id="description" [(ngModel)]="description" placeholder="Description">
+  <input type="text" id="tags" [(ngModel)]="tags" placeholder="Tags">
 
   <button (click)="onUpload()"  [disabled]="!selectedFile">Upload</button>
 </div>

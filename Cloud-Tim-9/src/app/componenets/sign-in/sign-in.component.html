@@ -1,13 +1,19 @@
-<div *ngIf="user">
-    <form>
-        <label class="element">Username:</label>
-        <input class="element" name="username" type="text" [(ngModel)]="user.email">
-        <label class="element">Password:</label>
-        <input class="element" name="password" type="password" [(ngModel)]="user.password">
-        <button class="element" type="submit" (click)="SignIn()">Sign in</button>
-        <label class="element">Don't have an account?</label>
-        <button class="element" (click)="SignUp()">Sign up!</button>
-    </form>
+<div class="container" *ngIf="user">
+    <div class = "row w-100 vh-100 justify-content-center align-items-center">
+        <div class = "auth-box">
+            <div *ngIf="user">
+                <div class="form">
+                    <input name="username" type="text" [(ngModel)]="user.email" placeholder="Username">
+                    <input name="password" type="password" [(ngModel)]="user.password" placeholder="Password">
+                    <button type="submit" (click)="SignIn()">Sign in</button>
+                    <br/>
+                    <br/>
+                    <label>Don't have an account?</label>
+                    <button (click)="SignUp()">Sign up!</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <app-message-modal *ngIf="showAlert" (modalClose)="showAlert=false" [message]="alertMessage"></app-message-modal>
