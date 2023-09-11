@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
         DateLastModified: this.selectedFile.lastModified.toLocaleString(),
         DateCreated: Date.now().toLocaleString(),
         Description: this.description,
-        Tags: ["z", "b"],
+        Tags: this.tags,
         Uploader: "ja"
       }
 
@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
           'Content-Type': 'application/json'
         })
       };
-      this.http.post("/test/filedetails/", request)
+      this.http.post("/release/filedetails/", request)
         .subscribe(
           response => {
             console.log(response);
@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
             console.log(error);
           }
         );
-      this.http.put("/KT1/cloud-tim9-mediafiles/" + this.selectedFile.name, fileUploadRequest, httpOptions)
+      this.http.put("/release/mediafiles", fileUploadRequest, httpOptions)
         .subscribe(
           response => {
             console.log(response);
@@ -81,8 +81,6 @@ export class HomeComponent implements OnInit {
             console.log(error);
           }
         );
-
-      console.log(request);
     }
   }
 

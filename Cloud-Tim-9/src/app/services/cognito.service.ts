@@ -30,7 +30,7 @@ export class CognitoService {
   }
 
   public confirmSignUp(user:User) : Promise<any>{
-    return Auth.confirmSignUp(user.email, user.code);
+    return Auth.confirmSignUp(user.preferred_username, user.code);
   }
 
   public getUser() : Promise<any> {

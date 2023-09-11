@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   cognito: {
-    userPoolId: 'us-east-1_m0vDv8Jjf',
-    userPoolWebClientId: '736lfmfb22aivdec09sf8mo3go'
+    userPoolId: 'us-east-1_gFtnlsHZv',
+    userPoolWebClientId: '6rt4viht6l4sl078bkt8hont4c'
   },
   AWS_ACCESS_KEY_ID: "<your_aws_access_key_id>",
   AWS_SECRET_ACCESS_KEY: "<your_aws_secret_access_key>",

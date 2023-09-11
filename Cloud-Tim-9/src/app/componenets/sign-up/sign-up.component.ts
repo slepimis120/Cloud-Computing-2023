@@ -41,6 +41,7 @@ export class SignUpComponent implements OnInit{
 
   public confirmSignUp(){
     if (this.user) {
+      console.log(this.user.code)
       this.cognitoService.confirmSignUp(this.user)
       .then(() => {
         this.router.navigate(['/sign-in'])
