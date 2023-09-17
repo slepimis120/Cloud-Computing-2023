@@ -13,3 +13,4 @@
 
   <button (click)="onUpload()"  [disabled]="!selectedFile">Upload</button>
 </div>
+<app-message-modal *ngIf="showAlert" (modalClose)="showAlert=false" [message]="alertMessage"></app-message-modal>

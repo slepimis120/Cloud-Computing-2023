@@ -23,19 +23,22 @@ export class SignInComponent implements OnInit
   
   SignIn()
   {
-    if(this.user && this.user.email && this.user.password)
+    if(this.user && this.user.email && this.user.password){
       this.cognitoService.signIn(this.user)
       .then(() =>
       {
-        this.router.navigate(["/"]);
+        if(this.user != null && this.user != undefined)
+          this.router.navigate(["/"], {state:{data:this.user.email}});
       })
       .catch((error: any) =>
       {
         this.displayAlert(error.message);
       });
+    }
     else
       if(this.user)
         this.displayAlert("You must enter username and password.");
+      
   }
   
   SignUp()
