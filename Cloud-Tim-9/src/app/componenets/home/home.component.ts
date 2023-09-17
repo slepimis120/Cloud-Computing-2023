@@ -1,8 +1,9 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {CognitoService} from 'src/app/services/cognito.service';
+import {Album} from 'src/app/models/album';
 import {HttpClient, HttpHeaders, HttpRequest, HttpResponse} from "@angular/common/http";
-import {catchError, filter} from "rxjs";
+import {catchError, filter, map} from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,9 @@ export class HomeComponent implements OnInit {
   protected filename: string = '';
   alertMessage: string = "";
   showAlert: boolean = false;
+  albumlist: Album[] = [];
+  albumnamelist: string[] = [];
+  selectedAlbumSting: Album | undefined;
 
   
 
@@ -25,13 +29,33 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserDetails();
+    this.getAlbums();
+  }
+
+  private getAlbums(){
+    const albumbrequest = {
+      Name: history.state.data
+    }
+
+    this.http.post<Album[]>("/release/albumdetails/", albumbrequest)
+    .subscribe(
+      response => {
+        this.albumlist = response;
+        this.albumnamelist = this.albumlist.map(x => x.Name)
+        console.log(response[0]);
+      },
+      error => {
+        this.displayAlert(error.message);
+      }
+    );
+    
   }
 
   private getUserDetails() {
     this.cognitoService.getUser()
       .then((user: any) => {
         if (user) {
-
+          
         } else {
           this.router.navigate(['/sign-in']);
         }
@@ -60,6 +84,7 @@ export class HomeComponent implements OnInit {
           response => {
             this.filename = response;
             if(this.selectedFile){
+              console.log(this.selectedAlbumSting?.Name)
               const request = {
                 Name: this.filename,
                 FileName: this.selectedFile.name,
@@ -71,7 +96,8 @@ export class HomeComponent implements OnInit {
                 Tags: this.tags.split(",").map(function(item) {
                   return item.trim();
                 }),
-                Uploader: history.state.data
+                Uploader: history.state.data,
+                Album: this.selectedAlbumSting?.Name
               }
               this.http.post("/release/filedetails/", request, {responseType: 'text'})
                 .subscribe(

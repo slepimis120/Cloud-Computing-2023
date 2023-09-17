@@ -32,3 +32,57 @@ img{
 .user-content {
     padding: 100px;
 }
+
+.user-content {
+    width: 80%;
+    padding-right: 24px;
+    padding-left: 24px;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+input, select {
+    margin: 15px;
+}
+
+input[type="text"], select {
+    height: 46px;
+    width: 200px;
+
+    padding: 0 16px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    outline: 0;
+    margin: 10px auto;
+}
+
+input[type="file"] {
+    height: 46px;
+    width: 200px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 28px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    outline: 0;
+    margin: 10px auto;
+    
+}
+
+
+
+button {
+    padding: 12px 10px;
+    border: 0;
+    background: black;
+    border-radius: 3px;
+    margin-top: 10px;
+    color: #fff;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+button:disabled {
+    background: #666;
+    cursor:default;
+}

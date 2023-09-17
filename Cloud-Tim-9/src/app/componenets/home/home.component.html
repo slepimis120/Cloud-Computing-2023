@@ -8,9 +8,15 @@
 <div class="user-content">
   <h2>Upload files</h2>
   <input type="file" id="file" (change)="handleFileInput($event)" >
+  <br/>
   <input type="text" id="description" [(ngModel)]="description" placeholder="Description">
+  <br/>
   <input type="text" id="tags" [(ngModel)]="tags" placeholder="Tags">
-
-  <button (click)="onUpload()"  [disabled]="!selectedFile">Upload</button>
+  <br/>
+  <select [(ngModel)]="selectedAlbumSting">
+    <option *ngFor="let a of albumlist" [ngValue]="a">{{a.Name}}</option>
+  </select>
+  <br/>
+  <button (click)="onUpload()"  [disabled]="!selectedFile || !selectedAlbumSting">Upload</button>
 </div>
 <app-message-modal *ngIf="showAlert" (modalClose)="showAlert=false" [message]="alertMessage"></app-message-modal>
