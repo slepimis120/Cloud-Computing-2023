@@ -29,16 +29,29 @@ img{
     overflow: hidden;
 }
 
-.user-content {
-    padding: 100px;
+#deleteAlbum{
+    background-color: #f44336;
 }
 
-.user-content {
-    width: 80%;
+.create-album {
+    float: left;
+    margin-top: 30px;
     padding-right: 24px;
     padding-left: 24px;
-    margin-left: auto;
-    margin-right: auto; 
+}
+
+.upload-image {
+    float: left;
+    margin-top: 30px;
+    padding-right: 24px;
+    padding-left: 24px;
+}
+
+.delete-album {
+    float: left;
+    margin-top: 30px;
+    padding-right: 24px;
+    padding-left: 24px;
 }
 
 input, select {

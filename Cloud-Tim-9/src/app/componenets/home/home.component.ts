@@ -21,6 +21,8 @@ export class HomeComponent implements OnInit {
   albumlist: Album[] = [];
   albumnamelist: string[] = [];
   selectedAlbumSting: Album | undefined;
+  selectedDeleteAlbum: Album | undefined;
+  albumName: string = "";
 
   
 
@@ -42,7 +44,6 @@ export class HomeComponent implements OnInit {
       response => {
         this.albumlist = response;
         this.albumnamelist = this.albumlist.map(x => x.Name)
-        console.log(response[0]);
       },
       error => {
         this.displayAlert(error.message);
@@ -71,6 +72,48 @@ export class HomeComponent implements OnInit {
 
   handleFileInput(event: any) {
     this.selectedFile = event.target.files[0] as File;
+  }
+
+  createAlbum() {
+    const request = {
+      Name: this.albumName,
+      Owner: history.state.data
+    }
+    this.http.post("/release/album/", request, {responseType: 'text'})
+      .subscribe(
+        response => {
+          this.displayAlert(response + " The page will automatically refresh.");
+          setTimeout(() => {
+            location.reload();
+          }, 5000);
+          
+        },
+        error => {
+          this.displayAlert(error.message);
+        }
+      );
+  }
+
+  deleteAlbum() {
+    if(this.selectedDeleteAlbum != undefined){
+      const request = {
+        Name: this.selectedDeleteAlbum.Name,
+        Owner: history.state.data
+      }
+
+      this.http.request('delete', '/release/album', {body: request}).subscribe(
+        response => {
+          this.displayAlert("Item successfully deleted! The page will automatically refresh.");
+          setTimeout(() => {
+            location.reload();
+          }, 5000);
+          
+        },
+        error => {
+          this.displayAlert(error.message);
+        }
+      );
+    }
   }
 
   onUpload() {

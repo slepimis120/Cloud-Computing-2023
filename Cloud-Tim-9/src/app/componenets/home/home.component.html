@@ -5,18 +5,34 @@
   </a>
 </div>
 
-<div class="user-content">
-  <h2>Upload files</h2>
-  <input type="file" id="file" (change)="handleFileInput($event)" >
-  <br/>
-  <input type="text" id="description" [(ngModel)]="description" placeholder="Description">
-  <br/>
-  <input type="text" id="tags" [(ngModel)]="tags" placeholder="Tags">
-  <br/>
-  <select [(ngModel)]="selectedAlbumSting">
-    <option *ngFor="let a of albumlist" [ngValue]="a">{{a.Name}}</option>
-  </select>
-  <br/>
-  <button (click)="onUpload()"  [disabled]="!selectedFile || !selectedAlbumSting">Upload</button>
+<div class="forms">
+  <div class="upload-image">
+    <h2>Upload files</h2>
+    <input type="file" id="file" (change)="handleFileInput($event)" >
+    <br/>
+    <input type="text" id="description" [(ngModel)]="description" placeholder="Description">
+    <br/>
+    <input type="text" id="tags" [(ngModel)]="tags" placeholder="Tags">
+    <br/>
+    <select [(ngModel)]="selectedAlbumSting">
+      <option *ngFor="let a of albumlist" [ngValue]="a">{{a.Name}}</option>
+    </select>
+    <br/>
+    <button (click)="onUpload()"  [disabled]="!selectedFile || !selectedAlbumSting">Upload</button>
+  </div>
+  <div class="create-album">
+    <h2>Create album</h2>
+    <input type="text" id="albumname" [(ngModel)]="albumName" placeholder="Album name">
+    <br/>
+    <button (click)="createAlbum()"  [disabled]="!albumName">Create album</button>
+  </div>
+  <div class="delete-album">
+    <h2>Delete album</h2>
+    <select [(ngModel)]="selectedDeleteAlbum">
+      <option *ngFor="let a of albumlist" [ngValue]="a">{{a.Name}}</option>
+    </select>
+    <br/>
+    <button (click)="deleteAlbum()" id="deleteAlbum" [disabled]="!selectedDeleteAlbum">Delete album</button>
+  </div>
 </div>
 <app-message-modal *ngIf="showAlert" (modalClose)="showAlert=false" [message]="alertMessage"></app-message-modal>
