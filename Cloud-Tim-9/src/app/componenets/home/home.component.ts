@@ -2,8 +2,8 @@ import {Component, OnInit, Input} from '@angular/core';
 import {Router} from '@angular/router';
 import {CognitoService} from 'src/app/services/cognito.service';
 import {Album} from 'src/app/models/album';
-import {HttpClient, HttpHeaders, HttpRequest, HttpResponse} from "@angular/common/http";
-import {catchError, filter, map} from "rxjs";
+import {FileMedia} from 'src/app/models/file'
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-home',
@@ -12,18 +12,26 @@ import {catchError, filter, map} from "rxjs";
 })
 export class HomeComponent implements OnInit {
   protected selectedFile: File | null = null;
+  protected selectedFileChange: File | null = null;
   protected description: string = '';
   protected tags: string = '';
   protected file64: string = '';
   protected filename: string = '';
+  protected descriptionDownload: string = '';
+  protected tagsDownload: string = '';
   alertMessage: string = "";
   showAlert: boolean = false;
+  showDetails: boolean = false;
   albumlist: Album[] = [];
   albumnamelist: string[] = [];
   selectedAlbumSting: Album | undefined;
+  selectedAlbumStingDownload: Album | undefined;
   selectedDeleteAlbum: Album | undefined;
+  selectedGetAlbum: Album | undefined;
   albumName: string = "";
-
+  fileList: FileMedia[] = [];
+  selectedFileDownload: FileMedia | undefined;
+  editableFile: FileMedia | undefined;
   
 
   constructor(private router: Router, private cognitoService: CognitoService, private http: HttpClient) {
@@ -74,6 +82,113 @@ export class HomeComponent implements OnInit {
     this.selectedFile = event.target.files[0] as File;
   }
 
+  handleAnotherFileInput(event: any) {
+    this.selectedFileChange = event.target.files[0] as File;
+  }
+
+  onSave(){
+    if(this.selectedFileChange) {
+      const reader = new FileReader();
+      reader.readAsDataURL(this.selectedFileChange);
+      reader.onload = () => {
+        this.file64 = <string>reader.result;
+        const request = {
+          File: this.file64,
+          Name: this.selectedFileDownload?.Name,
+          DateCreated: this.editableFile?.DateCreated,
+          DateLastModified: Date.now().toLocaleString(),
+          Description: this.descriptionDownload,
+          FileName: this.selectedFileChange?.name,
+          SizeKb: this.selectedFileChange?.size.toString(),
+          Tags: this.tagsDownload,
+          Type: this.selectedFileChange?.type,
+          Uploader: history.state.data
+        }
+        console.log(request)
+        this.http.post("/release/editfile/", request, {responseType: 'text'})
+          .subscribe(
+            response => {
+              this.displayAlert(response);
+            },
+            error => {
+              this.displayAlert(error.message);
+            }
+          );
+      }
+    }else{
+      const request = {
+        File: "none",
+        Name: this.selectedFileDownload?.Name,
+        DateCreated: this.editableFile?.DateCreated,
+        DateLastModified: Date.now().toLocaleString(),
+        Description: this.descriptionDownload,
+        FileName: this.editableFile?.FileName,
+        SizeKb: this.editableFile?.SizeKb,
+        Tags: this.tagsDownload,
+        Type: this.editableFile?.Type,
+        Uploader: history.state.data
+      }
+      console.log(request)
+      this.http.post("/release/editfile/", request, {responseType: 'text'})
+          .subscribe(
+            response => {
+              this.displayAlert(response);
+            },
+            error => {
+              this.displayAlert(error.message);
+            }
+          );
+    }
+
+      
+  }
+
+  deleteImage(){
+    const request = {
+      Name: this.selectedFileDownload?.Name,
+      Owner: history.state.data
+    }
+    console.log(request)
+    this.http.post("/release/delete-file/", request, {responseType: 'text'})
+      .subscribe(
+        response => {
+          this.displayAlert(response)
+        },
+        error => {
+          this.displayAlert(error.message);
+        }
+      );
+  }
+
+
+  onDownload(){
+    const request = {
+      Name: this.selectedFileDownload?.Name,
+      Owner: history.state.data
+    }
+    console.log(request)
+    this.http.post("/release/mediafiles/", request, {responseType: 'text'})
+      .subscribe(
+        response => {
+          if(this.selectedFileDownload != undefined){
+            window.open(response, "_blank");
+          }
+        },
+        error => {
+          this.displayAlert(error.message);
+        }
+      );
+  }
+
+  getData(file: FileMedia){
+    this.editableFile = file
+    this.descriptionDownload = file.Description
+    this.tagsDownload = file.Tags.map(x=>x).join(", ")
+    this.selectedAlbumStingDownload = this.selectedGetAlbum
+    this.showDetails = true;
+    this.selectedFileDownload = file;
+  }
+
   createAlbum() {
     const request = {
       Name: this.albumName,
@@ -92,6 +207,27 @@ export class HomeComponent implements OnInit {
           this.displayAlert(error.message);
         }
       );
+  }
+
+  getAlbum() {
+    if(this.selectedGetAlbum != undefined){
+      let nameList: String[] = [];
+      for(let i = 0; i < this.selectedGetAlbum.Contents.length; i++){
+        nameList.push(this.selectedGetAlbum.Contents[i])
+      }
+      const request = {
+        Name: nameList,
+        Album: this.selectedGetAlbum.Name
+      }
+      this.http.post<FileMedia[]>('/release/files', request).subscribe(
+        response => {
+          this.fileList = response
+        },
+        error => {
+          console.log(error)
+        }
+      );
+    }
   }
 
   deleteAlbum() {

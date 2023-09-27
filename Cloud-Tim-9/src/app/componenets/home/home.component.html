@@ -6,6 +6,31 @@
 </div>
 
 <div class="forms">
+  <div class="get-files">
+    <h2>Get files</h2>
+    <select [(ngModel)]="selectedGetAlbum">
+      <option *ngFor="let a of albumlist" [ngValue]="a">{{a.Name}}</option>
+    </select>
+    <br/>
+    <button (click)="getAlbum()" id="getAlbum" [disabled]="!selectedGetAlbum">Get Files</button>
+
+    <div id="listedFiles" *ngFor="let file of fileList" (click)="getData(file)">
+      {{ file.FileName }}
+    </div>
+  </div>
+  <div class="image-details">
+    <h2>Change image details</h2>
+    <input type="file" id="file" [disabled]="!showDetails" (change)="handleAnotherFileInput($event)" >
+    <br/>
+    <input type="text" id="description" [readonly]="!showDetails" [(ngModel)]="descriptionDownload" placeholder="Description">
+    <br/>
+    <input type="text" id="tags" [readonly]="!showDetails" [(ngModel)]="tagsDownload" placeholder="Tags">
+    <br/>
+    <br/>
+    <button (click)="onSave()"  [disabled]="!showDetails">Save</button>
+    <button (click)="onDownload()"  [disabled]="!showDetails">Download</button>
+    <button (click)="deleteImage()" [disabled]="!showDetails" id="deleteAlbum">Delete</button>
+  </div>
   <div class="upload-image">
     <h2>Upload files</h2>
     <input type="file" id="file" (change)="handleFileInput($event)" >

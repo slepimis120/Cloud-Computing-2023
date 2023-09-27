@@ -47,7 +47,21 @@ img{
     padding-left: 24px;
 }
 
+.image-details {
+    float: left;
+    margin-top: 30px;
+    padding-right: 24px;
+    padding-left: 24px;
+}
+
 .delete-album {
+    float: left;
+    margin-top: 30px;
+    padding-right: 24px;
+    padding-left: 24px;
+}
+
+.get-files {
     float: left;
     margin-top: 30px;
     padding-right: 24px;
@@ -86,6 +100,7 @@ input[type="file"] {
 
 button {
     padding: 12px 10px;
+    margin: 5px;
     border: 0;
     background: black;
     border-radius: 3px;
@@ -98,4 +113,13 @@ button {
 button:disabled {
     background: #666;
     cursor:default;
+}
+
+.image-details input:read-only{
+    background: #d4d4d4;
+}
+
+#listedFiles{
+    margin: 10px;
+    cursor: pointer;
 }
